@@ -34,16 +34,11 @@ export const IntegrationsView: React.FC = () => {
     addToast 
   } = useDashboard();
 
-  // Visibility toggle
   const [showKey, setShowKey] = useState(false);
   const [copiedKey, setCopiedKey] = useState(false);
-  
-  // Local webhook state
   const [localWebhook, setLocalWebhook] = useState(webhookUrl);
   const [isSavingWebhook, setIsSavingWebhook] = useState(false);
   const [isTestingWebhook, setIsTestingWebhook] = useState(false);
-
-  // Terminal logging state
   const [logs, setLogs] = useState<LogEntry[]>([
     {
       timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString().replace('T', ' ').substring(0, 19),
@@ -83,7 +78,6 @@ export const IntegrationsView: React.FC = () => {
       setIsSavingWebhook(false);
       addToast("Webhook endpoint updated successfully", "success");
       
-      // Append a terminal log
       const newLog: LogEntry = {
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19),
         method: "SYSTEM",
@@ -100,11 +94,10 @@ export const IntegrationsView: React.FC = () => {
     if (isTestingWebhook) return;
     setIsTestingWebhook(true);
     
-    // Add pending log trigger
     addToast("Dispatching mock transaction settled webhook...", "info");
 
     setTimeout(() => {
-      const isSuccess = Math.random() > 0.05; // 95% success rate for simulation
+      const isSuccess = Math.random() > 0.05;
       const status = isSuccess ? 200 : 500;
       
       const newLog: LogEntry = {
@@ -136,7 +129,6 @@ export const IntegrationsView: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Top Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2">
           Webhook & Integrations
@@ -147,11 +139,7 @@ export const IntegrationsView: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
-        {/* Left Hand side Developer Config cards */}
         <div className="space-y-6">
-          
-          {/* Webhook Configuration Card */}
           <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6 space-y-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <Globe className="h-4.5 w-4.5 text-accent-indigo" />
@@ -215,7 +203,6 @@ export const IntegrationsView: React.FC = () => {
             </div>
           </div>
 
-          {/* Secure API credentials card */}
           <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6 space-y-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <Key className="h-4.5 w-4.5 text-accent-emerald animate-pulse-slow" />
@@ -232,7 +219,6 @@ export const IntegrationsView: React.FC = () => {
                 </label>
                 
                 <div className="flex gap-2">
-                  {/* Password / secret key container */}
                   <div className="flex-1 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm font-mono text-zinc-300 flex items-center justify-between overflow-hidden">
                     <span className="truncate select-all text-xs tracking-wider">
                       {showKey ? secretKey : "••••••••••••••••••••••••••••••••••••••••••••"}
@@ -246,7 +232,6 @@ export const IntegrationsView: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Copy Button */}
                   <button
                     type="button"
                     onClick={handleCopyKey}
@@ -256,7 +241,6 @@ export const IntegrationsView: React.FC = () => {
                     {copiedKey ? <Check className="h-4 w-4 text-accent-emerald" /> : <Copy className="h-4 w-4" />}
                   </button>
 
-                  {/* Regenerate Key */}
                   <button
                     type="button"
                     onClick={regenerateSecretKey}
@@ -277,7 +261,6 @@ export const IntegrationsView: React.FC = () => {
 
         </div>
 
-        {/* Right Column: Webhook Event Logs Terminal */}
         <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6 flex flex-col h-full space-y-4">
           <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
@@ -295,13 +278,11 @@ export const IntegrationsView: React.FC = () => {
             </button>
           </div>
 
-          {/* Terminal Box */}
           <div className="flex-1 bg-black border border-zinc-850 rounded-lg font-mono text-[11px] p-4 min-h-[350px] max-h-[460px] overflow-y-auto space-y-4 scrollbar-thin">
             {logs.length > 0 ? (
               logs.map((log, idx) => (
                 <div key={idx} className="space-y-1.5 border-b border-zinc-900 pb-3 last:border-b-0 last:pb-0">
-                  {/* Meta stats bar */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-zinc-500">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-zinc-550">
                     <span>[{log.timestamp}]</span>
                     <div className="flex gap-2">
                       <span className="text-zinc-600">latency: {log.latency}</span>
@@ -311,7 +292,6 @@ export const IntegrationsView: React.FC = () => {
                     </div>
                   </div>
                   
-                  {/* Request Endpoint */}
                   <div className="flex items-center gap-1.5">
                     <span className="text-accent-sky font-semibold bg-accent-sky/5 px-1 py-0.2 rounded border border-accent-sky/15">
                       {log.method}
@@ -319,8 +299,7 @@ export const IntegrationsView: React.FC = () => {
                     <span className="text-zinc-300 truncate select-all">{log.url}</span>
                   </div>
 
-                  {/* Body Payload */}
-                  <div className="bg-zinc-950/80 p-2 rounded border border-zinc-900 text-zinc-400 overflow-x-auto">
+                  <div className="bg-zinc-950/80 p-2 rounded border border-zinc-900 text-zinc-450 overflow-x-auto">
                     <pre className="max-w-full">
                       <code>{log.payload}</code>
                     </pre>

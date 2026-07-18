@@ -22,7 +22,6 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-// Mock data for sales history chart
 const initialChartData = [
   { day: "Mon", yield: 12.4 },
   { day: "Tue", yield: 15.8 },
@@ -42,13 +41,12 @@ export const AnalyticsView: React.FC = () => {
     setMounted(true);
   }, []);
 
-  // Update chart data slightly based on live metrics updates
+  // Update chart data based on live metrics updates
   useEffect(() => {
     if (totalYield > 86.40) {
       const difference = totalYield - 86.40;
       setChartData((prev) => {
         const updated = [...prev];
-        // add the diff to the last day
         updated[updated.length - 1] = {
           ...updated[updated.length - 1],
           yield: parseFloat((initialChartData[initialChartData.length - 1].yield + difference).toFixed(2))
@@ -58,7 +56,6 @@ export const AnalyticsView: React.FC = () => {
     }
   }, [totalYield]);
 
-  // Calculate dynamic conversion rate
   const totalClicks = products.reduce((acc, p) => acc + p.clicks, 0);
   const totalSales = products.reduce((acc, p) => acc + p.sales, 0);
   const avgConversion = totalClicks > 0 
@@ -67,15 +64,12 @@ export const AnalyticsView: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Top Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-white">Live Analytics</h1>
         <p className="text-zinc-400 mt-1">Real-time performance monitoring & telemetry logs for your Blinks.</p>
       </div>
 
-      {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* KPI 1: Gross Yield */}
         <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 glow-border relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-25 transition-opacity">
             <TrendingUp className="h-24 w-24 text-accent-emerald" />
@@ -95,7 +89,6 @@ export const AnalyticsView: React.FC = () => {
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-emerald/20 to-accent-emerald/80" />
         </div>
 
-        {/* KPI 2: Active Blinks */}
         <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 glow-border relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-25 transition-opacity">
             <Layers className="h-24 w-24 text-accent-indigo" />
@@ -199,7 +192,6 @@ export const AnalyticsView: React.FC = () => {
         </div>
       </div>
 
-      {/* Settlements Table */}
       <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl overflow-hidden">
         <div className="p-6 border-b border-zinc-800 flex items-center justify-between">
           <div>

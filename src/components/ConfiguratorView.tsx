@@ -21,7 +21,6 @@ import {
 export const ConfiguratorView: React.FC = () => {
   const { addProduct, simulatePurchase, addToast, totalYield } = useDashboard();
 
-  // Local Form State (with interactive defaults)
   const [title, setTitle] = useState("BlinkStore VIP Founders Pass");
   const [coverImage, setCoverImage] = useState(
     "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=600&q=80"
@@ -60,45 +59,27 @@ export const ConfiguratorView: React.FC = () => {
     });
   };
 
-  // Buy simulation handler
   const handleSimulateBuy = async () => {
     if (isSimulatingBuy) return;
     setIsSimulatingBuy(true);
     setBuySuccess(false);
     
-    // Create an ephemeral product payload to pass to simulation
-    // We append a random ID so that the ledger updates correctly.
-    const mockProductId = "configurator-preview";
-    
-    // To make it clear in the global context, we will add an entry.
-    // However, since this is in the preview, we can directly run a simulated layout trigger.
     try {
-      // Simulate signature sequence
       await new Promise(resolve => setTimeout(resolve, 2500));
       
-      // Update global context by inserting a custom settlement or triggering a success toast
-      // We will trigger a success toast and update stats.
       setBuySuccess(true);
       addToast(`Simulation Success! 0.50 SOL received for ${title}`, "success");
       
-      // To satisfy global telemetry requirements:
-      // "Clicking the interactive 'Simulate Buy' button... should trigger a wallet signature sequence...
-      // Increment global SOL metrics and transaction counts. Append a new successful transaction..."
-      // We can hook into a simulated buy in our context
-      // Let's create an item in the context or invoke simulatePurchase for a fake id.
-      // We can also trigger the context simulatePurchase using the first product just to update metrics:
+      // Simulate purchase on standard product to update global telemetry/metrics
       await simulatePurchase("sol-dev-ticket");
       
     } catch (e) {
       addToast("Transaction signature failed", "error");
     } finally {
       setIsSimulatingBuy(false);
-      // Reset success status after a while
       setTimeout(() => setBuySuccess(false), 3000);
     }
   };
-
-  // Solana Action JSON Schema Representation
   const generatedSchema = JSON.stringify(
     {
       icon: coverImage || "https://blinkstore.dev/placeholder.jpg",
@@ -135,7 +116,6 @@ export const ConfiguratorView: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Top Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2">
           Action Configurator <Sparkles className="h-6 w-6 text-accent-indigo animate-pulse" />
@@ -147,7 +127,6 @@ export const ConfiguratorView: React.FC = () => {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         
-        {/* Left Column: Form Configurator */}
         <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6 space-y-6">
           <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
@@ -160,7 +139,6 @@ export const ConfiguratorView: React.FC = () => {
           </div>
 
           <form onSubmit={handlePublish} className="space-y-4">
-            {/* Title */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                 Product / Blink Title
@@ -175,7 +153,6 @@ export const ConfiguratorView: React.FC = () => {
               />
             </div>
 
-            {/* Cover Image URL */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                 Cover Image URL
@@ -190,7 +167,6 @@ export const ConfiguratorView: React.FC = () => {
               />
             </div>
 
-            {/* Description */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                 Description
@@ -205,7 +181,6 @@ export const ConfiguratorView: React.FC = () => {
               />
             </div>
 
-            {/* Price and Inventory Grid */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1">
@@ -237,7 +212,6 @@ export const ConfiguratorView: React.FC = () => {
               </div>
             </div>
 
-            {/* Custom Accordion for Advanced Web3 Rules */}
             <div className="border border-zinc-800 rounded-lg overflow-hidden">
               <button
                 type="button"
@@ -257,7 +231,6 @@ export const ConfiguratorView: React.FC = () => {
 
               {rulesOpen && (
                 <div className="bg-zinc-950/40 p-4 border-t border-zinc-800 space-y-3 animate-fadeIn">
-                  {/* Success Redirect URL */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-zinc-450 flex items-center gap-1">
                       <Link className="h-3 w-3 text-zinc-500" />
@@ -272,7 +245,6 @@ export const ConfiguratorView: React.FC = () => {
                     />
                   </div>
 
-                  {/* Custom Webhook URL */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-zinc-450 flex items-center gap-1">
                       <Terminal className="h-3 w-3 text-zinc-500" />
@@ -287,7 +259,6 @@ export const ConfiguratorView: React.FC = () => {
                     />
                   </div>
 
-                  {/* Metadata tags */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-zinc-450 flex items-center gap-1">
                       <Code className="h-3 w-3 text-zinc-500" />
@@ -305,7 +276,6 @@ export const ConfiguratorView: React.FC = () => {
               )}
             </div>
 
-            {/* Compile Button */}
             <button
               type="submit"
               className="w-full bg-accent-indigo hover:bg-indigo-650 active:bg-indigo-700 text-white font-medium rounded-lg px-4 py-3 text-sm transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-indigo-500/20"
@@ -316,10 +286,7 @@ export const ConfiguratorView: React.FC = () => {
           </form>
         </div>
 
-        {/* Right Column: Preview & JSON Schema */}
         <div className="space-y-6">
-          
-          {/* Live X Timeline Preview */}
           <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6 space-y-4">
             <h3 className="text-xs font-semibold text-zinc-450 uppercase tracking-wider flex items-center gap-1.5">
               <svg className="h-3.5 w-3.5 text-accent-sky fill-current" viewBox="0 0 24 24">
@@ -328,10 +295,8 @@ export const ConfiguratorView: React.FC = () => {
               Live X (Twitter) Feed Preview
             </h3>
 
-            {/* X Post Container */}
             <div className="bg-black border border-zinc-800 rounded-xl p-4 space-y-3 font-sans text-[15px] leading-relaxed max-w-lg mx-auto">
               
-              {/* Post Header */}
               <div className="flex gap-3">
                 <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-650 flex items-center justify-center font-bold text-white text-sm shadow">
                   BS
@@ -348,9 +313,7 @@ export const ConfiguratorView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Solana Action Blink Preview Render */}
               <div className="border border-zinc-800 rounded-xl overflow-hidden bg-zinc-950 max-w-md mx-auto ml-13">
-                {/* Cover Image */}
                 <div className="relative h-44 w-full bg-zinc-900 flex items-center justify-center overflow-hidden border-b border-zinc-800/80">
                   {coverImage ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -367,7 +330,6 @@ export const ConfiguratorView: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Blink Details */}
                 <div className="p-4 space-y-3">
                   <div className="space-y-1">
                     <h4 className="font-bold text-white text-[15px]">{title || "Your Blink Title"}</h4>
@@ -376,7 +338,6 @@ export const ConfiguratorView: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Actions / Interactive Area */}
                   <div className="pt-2">
                     <button
                       type="button"
@@ -417,7 +378,6 @@ export const ConfiguratorView: React.FC = () => {
             </div>
           </div>
 
-          {/* JSON Schema Inspector */}
           <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <h3 className="text-xs font-semibold text-zinc-450 uppercase tracking-wider flex items-center gap-1.5">

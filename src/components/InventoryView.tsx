@@ -23,7 +23,6 @@ export const InventoryView: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedEndpointId, setCopiedEndpointId] = useState<string | null>(null);
 
-  // Search logic
   const filteredProducts = products.filter((product) => {
     const term = searchTerm.toLowerCase();
     return (
@@ -51,7 +50,6 @@ export const InventoryView: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2">
@@ -67,10 +65,7 @@ export const InventoryView: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Container */}
       <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl overflow-hidden p-6 space-y-6">
-        
-        {/* Search & Actions Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div className="relative w-full sm:max-w-xs">
             <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -91,7 +86,6 @@ export const InventoryView: React.FC = () => {
           </div>
         </div>
 
-        {/* Catalog Table */}
         <div className="overflow-x-auto border border-zinc-850 rounded-lg bg-zinc-950/20">
           {filteredProducts.length > 0 ? (
             <table className="w-full text-left text-sm border-collapse">
@@ -112,7 +106,6 @@ export const InventoryView: React.FC = () => {
                     key={product.id} 
                     className="hover:bg-zinc-900/25 transition-colors duration-150 group"
                   >
-                    {/* Preview / Image + Title */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded bg-zinc-900 border border-zinc-800 overflow-hidden shrink-0 flex items-center justify-center">
@@ -142,31 +135,21 @@ export const InventoryView: React.FC = () => {
                         </div>
                       </div>
                     </td>
-
-                    {/* Price */}
                     <td className="px-6 py-4 text-zinc-205 font-medium">
                       {product.price.toFixed(2)} SOL
                     </td>
-
-                    {/* Clicks */}
                     <td className="px-6 py-4 font-mono text-xs text-zinc-400">
                       {product.clicks.toLocaleString()}
                     </td>
-
-                    {/* Sales */}
                     <td className="px-6 py-4 font-mono text-xs text-zinc-400">
                       {product.sales.toLocaleString()}
                     </td>
-
-                    {/* Gross Revenue */}
                     <td className="px-6 py-4 text-zinc-200 font-semibold">
                       <span className="flex items-center gap-1">
                         <Coins className="h-3.5 w-3.5 text-accent-emerald" />
                         {(product.price * product.sales).toFixed(2)} SOL
                       </span>
                     </td>
-
-                    {/* Status Badge */}
                     <td className="px-6 py-4">
                       {product.status === "active" ? (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 glow-emerald">
@@ -180,12 +163,8 @@ export const InventoryView: React.FC = () => {
                         </span>
                       )}
                     </td>
-
-                    {/* Utility Quick-Actions Matrix */}
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-                        
-                        {/* Copy Blink Link */}
                         <button
                           type="button"
                           onClick={() => handleCopyBlinkLink(product)}
@@ -198,8 +177,6 @@ export const InventoryView: React.FC = () => {
                             <ExternalLink className="h-3.5 w-3.5" />
                           )}
                         </button>
-
-                        {/* Copy Raw Endpoint */}
                         <button
                           type="button"
                           onClick={() => handleCopyRawEndpoint(product)}
@@ -212,8 +189,6 @@ export const InventoryView: React.FC = () => {
                             <Terminal className="h-3.5 w-3.5" />
                           )}
                         </button>
-
-                        {/* Deactivate / Pause */}
                         <button
                           type="button"
                           onClick={() => toggleProductStatus(product.id)}

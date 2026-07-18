@@ -21,12 +21,8 @@ import {
 
 export default function DashboardPage() {
   const { activeTab, setActiveTab, totalYield } = useDashboard();
-  
-  // Wallet state simulator
   const [isWalletConnected, setIsWalletConnected] = useState(true);
   const [walletBalance, setWalletBalance] = useState(245.50);
-
-  // Mobile sidebar menu toggle
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
@@ -64,10 +60,7 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen md:h-screen md:overflow-hidden bg-zinc-950 text-zinc-100 flex-col md:flex-row">
       
-      {/* SIDEBAR NAVIGATION (Desktop) */}
       <aside className="hidden md:flex flex-col w-64 bg-zinc-900 border-r border-zinc-800 shrink-0 overflow-y-auto">
-        
-        {/* Sidebar Header Brand */}
         <div className="h-16 px-6 border-b border-zinc-800 flex items-center gap-2">
           <div className="h-7 w-7 rounded-lg bg-gradient-to-tr from-emerald-500 to-indigo-650 flex items-center justify-center font-bold text-white shadow-lg">
             B
@@ -80,7 +73,6 @@ export default function DashboardPage() {
           </span>
         </div>
 
-        {/* Sidebar Tabs Links */}
         <nav className="flex-1 px-4 py-6 space-y-1.5">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -103,7 +95,6 @@ export default function DashboardPage() {
           })}
         </nav>
 
-        {/* Sidebar Footer (Wallet Simulation Widget) */}
         <div className="p-4 border-t border-zinc-800 bg-zinc-900/40">
           <div className="bg-zinc-950/80 border border-zinc-850 rounded-xl p-3 space-y-3">
             <div className="flex items-center justify-between">
@@ -151,7 +142,6 @@ export default function DashboardPage() {
 
       </aside>
 
-      {/* MOBILE HEADER (Collapsible Sidebar menu toggler) */}
       <header className="md:hidden h-16 bg-zinc-900 border-b border-zinc-800 px-6 flex items-center justify-between shrink-0 sticky top-0 z-40">
         <div className="flex items-center gap-2">
           <div className="h-6 w-6 rounded bg-gradient-to-tr from-emerald-500 to-indigo-650 flex items-center justify-center font-bold text-white text-xs shadow">
@@ -168,7 +158,6 @@ export default function DashboardPage() {
         </button>
       </header>
 
-      {/* MOBILE SLIDE-OUT MENU OVERLAY */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-30 bg-black/60 backdrop-blur-sm animate-fadeIn">
           <div className="absolute top-16 left-0 right-0 bg-zinc-900 border-b border-zinc-800 p-6 flex flex-col gap-4 animate-slideDown">
@@ -197,7 +186,6 @@ export default function DashboardPage() {
               })}
             </nav>
 
-            {/* Mobile Wallet Toggle */}
             <div className="border-t border-zinc-850 pt-4 mt-2">
               <button
                 onClick={() => {
@@ -219,14 +207,12 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* MAIN CONTENT AREA */}
       <main className="flex-1 overflow-y-auto w-full">
         <div className="max-w-7xl mx-auto px-6 py-8 md:px-10 md:py-10 pb-24 md:pb-10">
           {renderActiveView()}
         </div>
       </main>
 
-      {/* MOBILE BOTTOM NAVIGATION BAR (Slick SaaS ergonomic control) */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800 h-16 z-40 flex justify-around items-center px-4">
         {tabs.map((tab) => {
           const Icon = tab.icon;
