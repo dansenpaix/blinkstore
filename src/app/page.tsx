@@ -62,10 +62,10 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-zinc-950 text-zinc-100 flex-col md:flex-row">
+    <div className="flex min-h-screen md:h-screen md:overflow-hidden bg-zinc-950 text-zinc-100 flex-col md:flex-row">
       
       {/* SIDEBAR NAVIGATION (Desktop) */}
-      <aside className="hidden md:flex flex-col w-64 bg-zinc-900 border-r border-zinc-800 shrink-0">
+      <aside className="hidden md:flex flex-col w-64 bg-zinc-900 border-r border-zinc-800 shrink-0 overflow-y-auto">
         
         {/* Sidebar Header Brand */}
         <div className="h-16 px-6 border-b border-zinc-800 flex items-center gap-2">
@@ -220,8 +220,10 @@ export default function DashboardPage() {
       )}
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10 max-w-7xl mx-auto w-full pb-24 md:pb-10">
-        {renderActiveView()}
+      <main className="flex-1 overflow-y-auto w-full">
+        <div className="max-w-7xl mx-auto px-6 py-8 md:px-10 md:py-10 pb-24 md:pb-10">
+          {renderActiveView()}
+        </div>
       </main>
 
       {/* MOBILE BOTTOM NAVIGATION BAR (Slick SaaS ergonomic control) */}

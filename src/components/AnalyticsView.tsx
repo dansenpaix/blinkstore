@@ -114,7 +114,6 @@ export const AnalyticsView: React.FC = () => {
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-indigo/20 to-accent-indigo/80" />
         </div>
 
-        {/* KPI 3: Avg Conversion Velocity */}
         <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 glow-border relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-25 transition-opacity">
             <Activity className="h-24 w-24 text-accent-sky" />
@@ -133,7 +132,6 @@ export const AnalyticsView: React.FC = () => {
         </div>
       </div>
 
-      {/* Chart Section */}
       <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>

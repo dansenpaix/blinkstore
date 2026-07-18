@@ -32,17 +32,14 @@ export const ConfiguratorView: React.FC = () => {
   const [price, setPrice] = useState(0.50);
   const [inventory, setInventory] = useState(100);
 
-  // Advanced Web3 Rules (Accordion State)
   const [rulesOpen, setRulesOpen] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState("https://blinkstore.dev/vip-onboarding");
   const [webhookUrl, setWebhookUrl] = useState("https://api.blinkstore.dev/webhooks/founders-pass");
   const [metadata, setMetadata] = useState("vip, solana, badge, membership");
 
-  // Buy simulation state inside the live preview
   const [isSimulatingBuy, setIsSimulatingBuy] = useState(false);
   const [buySuccess, setBuySuccess] = useState(false);
 
-  // Compile & Publish Action Handler
   const handlePublish = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !coverImage.trim() || !description.trim()) {
